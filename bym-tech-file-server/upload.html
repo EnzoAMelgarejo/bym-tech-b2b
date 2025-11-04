@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Server - ByM Tech</title>
+</head>
+
+<body>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="Upload file" />
+  </form>
+</body>
+
+</html>
+
+<!-- Axios Example 
+ async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await axios.post('/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('Upload successful:', response.data);
+                alert('File uploaded successfully!');
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('Failed to upload file.');
+            }
+        } 
+
+
+-->

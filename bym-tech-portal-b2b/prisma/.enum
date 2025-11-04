@@ -1,0 +1,47 @@
+
+enum Role {
+    USER
+    ADMIN_COMPANY
+    ADMIN
+}
+
+enum typeAddress {
+    DELIVERY
+    INVOICE
+}
+
+enum typeCategory {
+    FILTER
+    NUMBER
+    STRING
+    DATE
+}
+
+enum typeNotifications{
+    FAVORITE,
+    NOTIFICATION,
+    SHOPPING_CART
+}
+
+enum typeOrder {
+    SHOPPING_CART
+    QUOTE
+    SALE_ORDER
+}
+
+enum typePromotion {
+    ONLY_CLICK
+    IMG_VIEW_RANDOM
+    IMG_VIEW_LEFT
+    IMG_VIEW_RIGHT
+    VIDEO_VIEW_LEFT
+    VIDEO_VIEW_RIGHT
+    TITLE_CENTER
+    TITLE_CENTER_ICON
+}
+
+enum statusOrder {
+    ACTIVE
+    EXPIRED
+    COMPLETED
+}

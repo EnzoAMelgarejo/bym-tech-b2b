@@ -1,0 +1,363 @@
+datasource db {
+    provider = "sqlserver"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Blog {
+    id         Int             @id @default(autoincrement())
+    title      String
+    bio        String
+    content    String          @db.Text // Para contenido largo
+    img        String?
+    user       User            @relation(fields: [userId], references: [id])
+    comments   Comment[]
+    userId     Int
+    category   Blog_Categories @relation(fields: [categoryId], references: [id])
+    categoryId Int
+    createdAt  DateTime        @default(now())
+    updatedAt  DateTime        @updatedAt
+}
+
+model Blog_Categories {
+    id   Int    @id @default(autoincrement())
+    name String
+    blog Blog[]
+}
+
+model Comment {
+    id        Int      @id @default(autoincrement())
+    content   String
+    blogId    Int
+    blog      Blog     @relation(fields: [blogId], references: [id])
+    user      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    userId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model User {
+    id                  Int                   @id @default(autoincrement())
+    email               String                @unique
+    name                String?
+    password            String
+    photo               String
+    role                String                @default("USER")
+    profile             Profile?
+    favorite            Favorite[]
+    blogs               Blog[] // Relación con los blogs
+    comments            Comment[] // Relación con los comentarios
+    company             Company[]
+    createdAt           DateTime              @default(now())
+    updatedAt           DateTime              @updatedAt
+    Notifications       Notifications[]
+    Order               Order[]
+    Interactions        Interactions[]
+    productInteractions ProductInteractions[]
+    productRating       ProductRating[]
+    Forms_Data          Forms_Data[]
+    Warranty            Warranty[]
+}
+
+model Profile {
+    id         Int      @id @default(autoincrement())
+    IdNumber   String   @unique
+    firstname  String
+    lastname   String
+    img        String
+    bio        String
+    phone      String
+    address    String
+    googleId   String
+    facebookId String
+    user       User     @relation(fields: [userId], references: [id])
+    userId     Int      @unique
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Branch {
+    id              Int      @id @default(autoincrement())
+    name            String
+    bio             String
+    streetAndNumber String
+    city            String
+    state           String
+    country         String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+}
+
+model Feature {
+    id        Int      @id @default(autoincrement())
+    title     String
+    bio       String
+    img       String
+    icon      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+    // id         Int      @id @default(autoincrement())
+    productCode String
+    productName String
+    productBio  String
+    productImg  String
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@id(name: "id", [productCode, userId])
+}
+
+model Category {
+    id        Int                   @id @default(autoincrement())
+    level     Int                   @default(0)
+    type      String                @default("FILTER")
+    name      String
+    code      String
+    img       String
+    icon      String
+    Product   Products_Categories[]
+    createdAt DateTime              @default(now())
+    updatedAt DateTime              @updatedAt
+}
+
+model Carousel {
+    id         Int      @id @default(autoincrement())
+    order      Int      @default(0)
+    status     Int      @default(2)
+    title      String
+    img        String
+    imgMobile  String   @default("./media/img/image-not-found.jpg")
+    icon       String
+    bio        String
+    link       String
+    filterJson String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Brand {
+    id         Int      @id @default(autoincrement())
+    order      Int      @default(0)
+    status     Int      @default(2)
+    title      String
+    img        String
+    icon       String
+    bio        String
+    link       String
+    filterJson String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Promotion {
+    id              Int      @id @default(autoincrement())
+    order           Int      @default(0)
+    status          Int      @default(2)
+    type            String   @default("IMG_VIEW_LEFT")
+    class           String   @default("VIDEO_LEFT") //VDEO_RIGHT - IMG_LEFT - IMG_RIGHT - CENTER_ICON
+    title           String
+    img             String
+    icon            String
+    color           String
+    backgroundColor String
+    bio             String
+    size            Int      @default(5)
+    link            String
+    filterJson      String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+}
+
+model Company {
+    id        Int       @id @default(autoincrement())
+    email     String
+    code      String
+    img       String
+    bio       String
+    User      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    Int?
+    Address   Address[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model Address {
+    id              Int      @id @default(autoincrement())
+    type            String   @default("INVOICE")
+    name            String
+    bio             String
+    streetAndNumber String
+    city            String
+    state           String
+    country         String
+    Company         Company? @relation(fields: [companyId], references: [id])
+    companyId       Int?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+}
+
+model Order {
+    id           Int          @id @default(autoincrement())
+    number       String
+    type         String       @default("SHOPPING_CART")
+    status       String       @default("ACTIVE")
+    bio          String
+    dueDate      DateTime     @default(now())
+    deliveryDate DateTime     @default(now())
+    total        Float
+    companyId    Int
+    userId       Int
+    user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    addressId    Int
+    refNumber    String
+    document     String
+    itemsOrder   itemsOrder[]
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+}
+
+model ProductInteractions {
+    userId Int
+    code   String
+    clicks Int    @default(1)
+    user   User   @relation(fields: [userId], references: [id])
+
+    @@id(fields: [code, userId])
+}
+
+model ProductRating {
+    userId Int
+    code   String
+    rating Int    @default(1)
+    user   User   @relation(fields: [userId], references: [id])
+
+    @@id(fields: [code, userId])
+}
+
+model itemsOrder {
+    id        Int      @id @default(autoincrement())
+    code      String
+    img       String
+    name      String
+    quant     String
+    price     String
+    total     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Order     Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    orderId   Int?
+}
+
+model Notifications {
+    id             Int     @id @default(autoincrement())
+    type           String  @default("NOTIFICATIONS")
+    viewed         String  @default("N")
+    operation_type String
+    code           String?
+    threadId       Int?
+    userId         Int
+    user           User    @relation(fields: [userId], references: [id])
+}
+
+model Product {
+    id        Int                   @id @default(autoincrement())
+    code      String                @unique
+    name      String
+    bio       String
+    img1      String
+    img2      String
+    img3      String
+    img4      String
+    img5      String
+    family    String
+    category  Products_Categories[]
+    quant     String
+    price     String
+    createdAt DateTime              @default(now())
+    updatedAt DateTime              @updatedAt
+}
+
+model Products_Categories {
+    idProd     String
+    idCategory Int
+    product    Product  @relation(fields: [idProd], references: [code])
+    category   Category @relation(fields: [idCategory], references: [id])
+
+    @@id(fields: [idProd, idCategory])
+}
+
+model Forms_Data {
+    id          Int           @id @default(autoincrement())
+    name        String
+    lastName    String
+    email       String
+    phone       String
+    userId      Int
+    user        User          @relation(fields: [userId], references: [id])
+    Forms_Files Forms_Files[]
+}
+
+model Forms_Files {
+    id         Int        @id @default(autoincrement())
+    path       String
+    fileName   String
+    formDataId Int
+    formData   Forms_Data @relation(fields: [formDataId], references: [id])
+}
+
+model Warranty {
+    id           Int    @id @default(autoincrement())
+    name         String
+    lastName     String
+    email        String
+    productType  String
+    dni          String
+    billNumber   String
+    phone        String
+    ruc          String
+    serialNumber String
+    imgPath      String?
+    billPath     String?
+    userId       Int
+    user         User   @relation(fields: [userId], references: [id])
+}
+
+model Enterprise {
+    id        Int      @id @default(autoincrement())
+    key       String
+    value1    String
+    value2    String
+    value3    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    active    Boolean
+}
+
+model threads {
+    id           Int            @id @default(autoincrement())
+    subject      String
+    status       String         @default("ABIERTO")
+    interactions Interactions[]
+    type         String
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+}
+
+model Interactions {
+    id        Int      @id @default(autoincrement())
+    message   String
+    userId    Int
+    threadId  Int
+    thread    threads  @relation(fields: [threadId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
