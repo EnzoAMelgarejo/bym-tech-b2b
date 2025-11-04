@@ -1,0 +1,34 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Envs
+.env
+.env.local
+.env.production
+.env.development
+
+# Builds
+dist/
+build/
+android/
+ios/
+
+# Backups y dumps
+/backups-bym/
+*.bak
+*.rar
+*.sql
+*.mdf
+*.ldf
+
+# Docker
+/docker/
+opt/
+*.pid
+
+# Editor y sistema
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,69 @@
+{
+    "Idioma": "Language",
+    "Seleccionar idioma": "Select language",
+    "Cerrar": "Close",
+    "Productos": "Products",
+    "Dónde comprar": "Where to buy",
+    "Garantía": "Warranty",
+    "Formularios": "Forms",
+    "Contacto": "Contact",
+    "Información": "Information",
+    "Catálogo": "Catalog",
+    "Blog": "Blog",
+    "Nosotros": "About Us",
+    "Nuestra Historia": "Our History",
+    "Trabaja con nosotros": "Work with us",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shippingCalculation": "Shipping calculation",
+    "country": "Country",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "updateTotal": "Update total",
+    "makePurchase": "Make purchase",
+    "thanksForYourPurchase": "Thanks for your purchase",
+    "orderOnItsWay": "Your order is on its way. We sent you an email with all the information.",
+    "continueShopping": "Continue shopping",
+    "error": "Error",
+    "allFieldsRequired": "All fields are required",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Invalid phone number. Only numbers are allowed.",
+    "warrantyDetails": "Warranty details",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "productType": "Product type",
+    "documentNumber": "Document number",
+    "invoiceNumber": "Invoice number",
+    "ruc": "Purchase RUC",
+    "serialNumber": "Serial number",
+    "attachInvoice": "Attach invoice",
+    "takePhoto": "Take photo",
+    "submit": "Submit",
+    "formTitle": "Form Request",
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "buttons": {
+      "submitForm": "Submit Form",
+      "uploadForm": "Upload Your Form"
+    },
+    "alerts": {
+      "errorTitle": "Error",
+      "errorRequiredFields": "All fields are required",
+      "errorInvalidEmail": "Invalid email address",
+      "errorInvalidPhone": "Invalid phone number. Only numbers are allowed.",
+      "successTitle": "Registration Successful",
+      "successMessage": "Welcome, {firstName} {lastName}"
+    },
+    "blog": {
+        "title": "Blog",
+        "filters": "Filters"
+    }
+    
+  }
+  
